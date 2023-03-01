@@ -10,16 +10,20 @@ const app = express()
 app.use(json())
 app.use(urlencoded({extended:true}))
 app.use(cors({
-    origin:"http://localhost:*"
+    origin:"*"
 }))
 
 
-const AuthUser = async (token:any)=>{
-    console.log(token)
-}
+app.use((req, res, next) => {
+    console.log(req.path)
+    next()
+})
 
-import UsersRouter from "./Routes/user"
+import UsersRouter from "./routes/user"
 app.use("/users",UsersRouter)
+
+import TaskRouter from "./routes/task";
+app.use("/tasks",TaskRouter)
 
 
 app.listen(3000,()=>{

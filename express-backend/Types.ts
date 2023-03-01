@@ -3,3 +3,10 @@ export type DefaultResponse={
     ClientError:boolean,
     ErrorMessage?:string
 }
+
+
+export type AuthTokenResult = {
+    success:boolean,
+    userId?:string
+}
+

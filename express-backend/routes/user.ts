@@ -7,6 +7,8 @@ import {connectionSetting} from "../config/mysqlSetting";
 const router = Router()
 
 router.post("/",async (req:Request,res:Response)=>{
+    // ユーザー認証（初回アクセスで登録)
+
     const {userId=null,userName=null,userIcon=null} = req.body
     if (!userId||!userName||!userIcon){
         res.json({
@@ -44,6 +46,11 @@ router.post("/",async (req:Request,res:Response)=>{
 
         const insertUserSQL = "insert into users(id,name,icon) values (?,?,?)"
         await connection.query(insertUserSQL,[firebaseUser.uid,firebaseUser.name,firebaseUser.picture])
+
+        res.json({
+            ServerError:false,
+            ClientError:false
+        } as DefaultResponse)
 
     }catch (e){
         console.log(e)
